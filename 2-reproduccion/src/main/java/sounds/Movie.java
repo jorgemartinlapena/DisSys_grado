@@ -7,7 +7,7 @@ import javax.imageio.*;
 import javax.swing.*;
 
 
-public class Movie extends Component {
+public class Movie extends Component implements Runnable{
     private static final long serialVersionUID = 1L;
 
     BufferedImage[] imgs;   // array to store images 
@@ -51,10 +51,10 @@ public class Movie extends Component {
         return new Dimension(imgs[cImg].getWidth(null) * numImages, imgs[cImg].getHeight(null));
     }
 
-
-    public static void main(String[] args) {
+    @Override
+    public void run() {
         // 1. Create a movie with images...  
-        Movie photoSeq = new Movie("reproduccion\\\\src\\\\main\\\\resources\\\\fotograms\\\\horse", 5);
+        Movie photoSeq = new Movie("2-reproduccion\\\\src\\\\main\\\\resources\\\\fotograms\\\\Muybridge", 14);
         //Movie photoSeq = new Movie ("path");
 
         // 2. create a frame
@@ -78,6 +78,7 @@ public class Movie extends Component {
             //show the frame
             f.setVisible(true);
 
+            
             try{
                 Thread.sleep(150);   // how fast images are rendered?
             }catch(InterruptedException e){
@@ -92,5 +93,16 @@ public class Movie extends Component {
         }
 
 
+    }
+
+    public static void main(String[] args) {
+        ReproduccionSonidos sonido = new ReproduccionSonidos();
+        Thread threadSonido = new Thread(sonido);
+
+        Movie pelicula = new Movie("2-reproduccion\\\\src\\\\main\\\\resources\\\\fotograms\\\\Muybridge", 14);
+        Thread threadPelicula = new Thread(pelicula);
+
+        threadPelicula.start();
+        threadSonido.start();
     }
 }
