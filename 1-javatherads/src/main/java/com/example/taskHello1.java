@@ -1,6 +1,6 @@
 package com.example;
 
-public class taskHello1 implements Runnable {   
+public class taskHello1 implements Runnable {
     public void run() {
         Thread t = Thread.currentThread();
         System.out.println(" Hi from thread " + t.getId());
@@ -16,8 +16,8 @@ public class taskHello1 implements Runnable {
         taskHello1 taskHello = new taskHello1();
         Thread thread1 = new Thread(taskHello);
         Thread thread2 = new Thread(taskHello);
-        thread1.run();
-        thread2.run();
+        thread1.start();
+        thread2.start();
     }
     
 }
